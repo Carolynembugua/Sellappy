@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavController
 import com.example.mvvmandroid.navigation.ROUT_DASHBOARD
+import com.example.mvvmandroid.navigation.ROUT_SIGNUP
 import com.example.mvvmandroid.ui.theme.liter
 import com.example.mvvmandroid.ui.theme.orange
 import com.example.mvvmandroid.ui.theme.ory
@@ -100,7 +101,7 @@ fun SplashScreen(navController: NavController){
 
 
         Button(
-            onClick = {  },
+            onClick = { navController.navigate(ROUT_SIGNUP) },
             colors = ButtonDefaults.buttonColors(ory),
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier

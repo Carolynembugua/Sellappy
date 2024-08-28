@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvmandroid.R
+import com.example.mvvmandroid.navigation.ROUT_DASHBOARD
 import com.example.mvvmandroid.ui.theme.pastorange
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -275,7 +276,7 @@ fun DetailsScreen(navController: NavController){
                 Text(text = "Shop : Sellapy", fontSize = 20.sp)
                 Text(text = "Brand : Fantasia", fontSize = 20.sp)
                 Text(text = "Location : Westlands", fontSize = 20.sp)
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
                     Text(text = "Call")
                 }
             }

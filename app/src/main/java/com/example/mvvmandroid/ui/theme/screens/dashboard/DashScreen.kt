@@ -38,7 +38,7 @@ import com.example.mvvmandroid.ui.theme.pastorange
 
 
 @Composable
-fun AboutScreen(navController: NavController){
+fun DashScreen(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -260,9 +260,12 @@ fun AboutScreen(navController: NavController){
                                 )
 
                             }
+
                             Text(
                                 text = "Intent",
-                                modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, //to center align a text
+                                modifier = Modifier
+                                    .clickable { navController.navigate(ROUT_INTENT) }
+                                    .fillMaxWidth(), textAlign = TextAlign.Center, //to center align a text
                                 fontSize = 20.sp
                             )
                         }
@@ -291,6 +294,6 @@ fun AboutScreen(navController: NavController){
 
 @Composable
 @Preview(showBackground = true)
-fun AboutScreenPreview(){
-    AboutScreen(rememberNavController())
+fun DashScreenPreview(){
+    DashScreen(rememberNavController())
 }

@@ -69,6 +69,7 @@ fun HomeScreen(navController:NavController){
             colors = ButtonDefaults.buttonColors(orange),
             shape = RoundedCornerShape(10.dp),
 
+
         ) {
            Text(text = "Continue")
         }

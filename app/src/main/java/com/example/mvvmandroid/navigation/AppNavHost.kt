@@ -7,8 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvmandroid.ui.theme.screens.about.AboutScreen
+import com.example.mvvmandroid.ui.theme.screens.contact.ContactScreen
+import com.example.mvvmandroid.ui.theme.screens.dashboard.DashScreen
+import com.example.mvvmandroid.ui.theme.screens.details.DetailsScreen
 import com.example.mvvmandroid.ui.theme.screens.home.HomeScreen
-import com.example.mvvmandroid.ui.theme.screens.home.IntentScreen
+import com.example.mvvmandroid.ui.theme.screens.intent.IntentScreen
+import com.example.mvvmandroid.ui.theme.screens.login.LoginScreen
+import com.example.mvvmandroid.ui.theme.screens.signup.SignupScreen
 import com.example.mvvmandroid.ui.theme.screens.splash.SplashScreen
 
 
@@ -31,13 +36,13 @@ fun AppNavHost(
             HomeScreen(navController = navController)
         }
         composable(ROUT_CONTACT) {
-            HomeScreen(navController = navController)
+            ContactScreen(navController = navController)
         }
         composable(ROUT_DETAILS) {
-            HomeScreen(navController = navController)
+            DetailsScreen(navController = navController)
         }
         composable(ROUT_DASHBOARD) {
-            HomeScreen(navController = navController)
+            DashScreen(navController = navController)
         }
         composable(ROUT_SPLASH) {
             SplashScreen(navController = navController)
@@ -45,5 +50,12 @@ fun AppNavHost(
         composable(ROUT_INTENT) {
             IntentScreen(navController = navController)
         }
+        composable(ROUT_SIGNUP) {
+            SignupScreen(navController = navController)
+        }
+        composable(ROUT_LOGIN) {
+           LoginScreen(navController = navController)
+        }
+
     }
 }
