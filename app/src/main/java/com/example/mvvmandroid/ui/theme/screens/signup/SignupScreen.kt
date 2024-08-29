@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvmandroid.R
+import com.example.mvvmandroid.data.AuthViewModel
 import com.example.mvvmandroid.navigation.ROUT_DETAILS
 import com.example.mvvmandroid.navigation.ROUT_LOGIN
 import com.example.mvvmandroid.ui.theme.orange
@@ -123,7 +125,13 @@ fun SignupScreen(navController: NavController){
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Button(onClick = {  },
+
+        val context = LocalContext.current
+        val authViewModel = AuthViewModel(navController, context)
+        Button(onClick = {
+            authViewModel.signup(name, email, password,confpassword)
+
+        },
             colors = ButtonDefaults.buttonColors(orange),
             shape = RoundedCornerShape(10.dp),
 

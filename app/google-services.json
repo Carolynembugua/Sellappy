@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319158561290",
+    "project_id": "sellappy-6d955",
+    "storage_bucket": "sellappy-6d955.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319158561290:android:155ac109a825160ba34df3",
+        "android_client_info": {
+          "package_name": "com.example.mvvmandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgNmgw_MqLxVqHUEjo90YeDujP8pBcndA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
