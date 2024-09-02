@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.mvvmandroid.models.User
+import com.example.mvvmandroid.navigation.ADD_PRODUCTS_URL
 import com.example.mvvmandroid.navigation.ROUT_DASHBOARD
 import com.example.mvvmandroid.navigation.ROUT_HOME
 import com.example.mvvmandroid.navigation.ROUT_INTENT
@@ -90,7 +91,7 @@ class AuthViewModel(var navController: NavController, var context: Context){
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful ){
                     Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
-                    navController.navigate(ROUT_INTENT)
+                    navController.navigate(ADD_PRODUCTS_URL)
                 }else{
                     Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
                 }

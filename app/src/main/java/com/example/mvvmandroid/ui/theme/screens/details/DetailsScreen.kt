@@ -252,8 +252,6 @@ fun DetailsScreen(navController: NavController){
 
 
         Row {
-
-
             Card(modifier = Modifier
                 .height(160.dp)
                 .width(200.dp)) {
@@ -267,10 +265,7 @@ fun DetailsScreen(navController: NavController){
                 }
             }
 
-
             Spacer(modifier = Modifier.width(20.dp))
-
-
 
             Column {
                 Text(text = "Shop : Sellapy", fontSize = 20.sp)
