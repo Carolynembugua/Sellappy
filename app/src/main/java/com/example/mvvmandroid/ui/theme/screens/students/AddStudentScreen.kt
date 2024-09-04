@@ -1,4 +1,5 @@
-package com.example.mvvmandroid.ui.theme.screens.products
+package com.example.mvvmandroid.ui.theme.screens.students
+
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,7 +27,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
@@ -39,8 +39,6 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -84,14 +82,14 @@ import androidx.compose.ui.unit.toSize
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.mvvmandroid.data.ProductViewModel
+import com.example.mvvmandroid.data.StudentViewModel
 import com.example.mvvmandroid.navigation.ADD_PRODUCTS_URL
-import com.example.mvvmandroid.navigation.ROUT_HOME
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddProductsScreen(navController:NavHostController){
+fun AddStudentScreen(navController:NavHostController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -141,26 +139,6 @@ fun AddProductsScreen(navController:NavHostController){
                 }
             },
 
-
-
-           topBar = {
-               TopAppBar(
-                   title = { Text(
-                       text = "Bookings",
-                       fontFamily = FontFamily.SansSerif,
-                       fontSize = 30.sp) },
-                   colors = TopAppBarDefaults.mediumTopAppBarColors(YellowIvy),
-
-                   navigationIcon = {
-                       IconButton(onClick = { navController.navigate(ROUT_HOME )}) {
-                           Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "menu",)
-
-                       }
-                   },
-
-                   )
-           },
-
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
@@ -174,8 +152,6 @@ fun AddProductsScreen(navController:NavHostController){
                     }
                 }
             },
-
-
             //Content Section
             content = @Composable{
                 Column(
@@ -184,143 +160,115 @@ fun AddProductsScreen(navController:NavHostController){
                         .verticalScroll(rememberScrollState())
                     ,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(800.dp)
-                            .clickable { navController.navigate(ROUT_HOME) },
-                        shape = RoundedCornerShape(40.dp),
-                        colors = CardDefaults.cardColors(Color.White)
-
-                    ) {
+                ){
 
 
-                        //End of Main Card
+                    Spacer(modifier = Modifier.height(50.dp))
+
+                    Text(
+                        text = "Register student here!",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.SansSerif)
+
+                    var name by remember { mutableStateOf("") }
+                    var email by remember { mutableStateOf("") }
+                    val context = LocalContext.current
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedTextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        label = { Text(text = "Enter student name ") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
 
 
-                        Spacer(modifier = Modifier.height(50.dp))
 
-                        Text(
-                            text = "Upload Here!",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.SansSerif
-                        )
+                    // Start of Text Field with a dropdown
+                    var mExpanded by remember { mutableStateOf(false) }
+                    val options = listOf("18-21 yrs", "22-28 yrs", "29-35 yrs")
+                    var age by remember { mutableStateOf("") }
+                    var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
+                    val icon = if (mExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
 
-                        var productName by remember { mutableStateOf("") }
-                        var productPrice by remember { mutableStateOf("") }
-                        var phone by remember { mutableStateOf("") }
-                        val context = LocalContext.current
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
+                    Column(Modifier.padding(20.dp)) {
                         OutlinedTextField(
-                            value = productName,
-                            onValueChange = { productName = it },
-                            label = { Text(text = "Product name ") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
+                            value = age,
+                            onValueChange = { age = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .onGloballyPositioned { coordinates ->
+                                    mTextFieldSize = coordinates.size.toSize()
+                                },
+                            label = {Text("Choose age group")},
+                            trailingIcon = {
+                                Icon(icon,"contentDescription",
+                                    Modifier.clickable { mExpanded = !mExpanded })
+                            }
                         )
+                        DropdownMenu(
+                            expanded = mExpanded,
+                            onDismissRequest = { mExpanded = false },
+                            modifier = Modifier.width(with(LocalDensity.current){mTextFieldSize.width.toDp()})
+                        ) {
+                            options.forEach {
 
-                        Spacer(modifier = Modifier.height(10.dp))
-
-
-                        // Start of Text Field with a dropdown
-                        var mExpanded by remember { mutableStateOf(false) }
-                        val options = listOf("250g", "500g", "1 kg")
-                        var productQuantity by remember { mutableStateOf("") }
-                        var mTextFieldSize by remember { mutableStateOf(Size.Zero) }
-                        val icon =
-                            if (mExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
-
-                        Column(Modifier.padding(20.dp)) {
-                            OutlinedTextField(
-                                value = productQuantity,
-                                onValueChange = { productQuantity = it },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .onGloballyPositioned { coordinates ->
-                                        mTextFieldSize = coordinates.size.toSize()
-                                    },
-                                label = { Text("Choose product quantity") },
-                                trailingIcon = {
-                                    Icon(icon, "contentDescription",
-                                        Modifier.clickable { mExpanded = !mExpanded })
-                                }
-                            )
-                            DropdownMenu(
-                                expanded = mExpanded,
-                                onDismissRequest = { mExpanded = false },
-                                modifier = Modifier.width(with(LocalDensity.current) { mTextFieldSize.width.toDp() })
-                            ) {
-                                options.forEach {
-
-                                        label ->
-                                    DropdownMenuItem(
-                                        text = { Text(text = label) },
-                                        onClick = {
-                                            productQuantity = label
-                                            mExpanded = false
-                                        })
+                                    label -> DropdownMenuItem(
+                                text = { Text(text = label)},
+                                onClick = {
+                                    age = label
+                                    mExpanded = false
+                                })
 
 
-                                }
                             }
                         }
-                        //End of TextField with dropdown
-
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        OutlinedTextField(
-                            value = productPrice,
-                            onValueChange = { productPrice = it },
-                            label = { Text(text = "Product price e.g Ksh.500") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
-                        )
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        OutlinedTextField(
-                            value = phone,
-                            onValueChange = { phone = it },
-                            label = { Text(text = "Phone") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
-                        )
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-
-                        //---------------------IMAGE PICKER START-----------------------------------//
-
-                        var modifier = Modifier
-                        ImagePicker(
-                            modifier,
-                            context,
-                            navController,
-                            productName.trim(),
-                            productQuantity.trim(),
-                            productPrice.trim(),
-                            phone.trim()
-                        )
-
-                        //---------------------IMAGE PICKER END-----------------------------------//
-
-
                     }
+                    //End of TextField with dropdown
+
+
+
+
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        label = { Text(text = "Email Address e.g abc@gmail.com") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+
+
+
+
+
+                    //---------------------IMAGE PICKER START-----------------------------------//
+
+                    var modifier = Modifier
+                    ImagePicker(modifier,context, navController, name.trim(), email.trim(), age.trim(),//trim a method that allows you to remove spaces
+
+                    //---------------------IMAGE PICKER END-----------------------------------//
+
+
 
                 }
+
+
 
 
             }
 
         )
-
-
 
     }
 }
@@ -364,7 +312,7 @@ data class BottomNavItem(
 
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, name:String, quantity:String, price:String,phone:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, name:String, email:String, age:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -409,14 +357,14 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-                var productRepository = ProductViewModel(navController,context)
-                productRepository.uploadProduct(name, quantity, price,phone,imageUri!!)
+                var studentRepository = StudentViewModel(navController,context)
+                studentRepository.uploadStudent(name, email, age, imageUri!!)
 
 
             },
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(Color.Gray)) {
-                Text(text = "Upload")
+                Text(text = "Register Student")
             }
         }
     }
@@ -424,8 +372,8 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
 
 @Composable
 @Preview(showBackground = true)
-fun AddProductsScreenPreview(){
-    AddProductsScreen(navController = rememberNavController())
+fun AddStudentScreenPreview(){
+    AddStudentScreen(navController = rememberNavController())
 
 }
 
